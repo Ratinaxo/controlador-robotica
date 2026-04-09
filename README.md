@@ -1,5 +1,11 @@
 # Laboratorio 1: Simulación de un Robot Móvil Diferencial en Webots
 
+## Integrantes
+* Maura Gonzalez
+* Guadalupe Marin
+* Rodrigo Rojas
+* Ricardo Toro
+
 ## Descripción del Laboratorio
 El repositorio contiene el código fuente correspondiente al controlador de un robot móvil de tracción diferencial (modelo e-puck v2 de Gctronic) operado dentro del entorno de simulación Webots. El objetivo principal de este laboratorio es implementar y analizar modelos cinemáticos bidimensionales mediante la programación de actuadores y la lectura de sensores integrados al e-puck.
 
@@ -34,6 +40,20 @@ Para replicar los experimentos y visualizar las trayectorias del robot:
 La ejecución del controlador demostró que a partir de las matemáticas de la cinemática diferencial aplicada nuestro entorno, arrojando los siguientes resultados comprobables:
 
 * **Validación de Ecuaciones Cinemáticas:** 
-    - Se confirmó que al igualar las velocidades de las ruedas (v<sub>r</sub> = v<sub>l</sub>) el radio de giro tiende a infinito (movimiento recto).
-    - Al establecer velocidades opuestas (v<sub>r</sub> = -v<sub>l</sub>), el centro instantáneo de rotación se posiciona exactamente en el centro del eje del robot, permitiendo giros sobre su propio eje vertical sin desplazamiento traslacional nulo.
-    - Las diferencias de velocidad (v<sub>r</sub> != v<sub>l</sub>) generaron radios de curvatura predecibles y proporcionales.
+    - Se confirmó que al igualar las velocidades de las ruedas (v<sub>r</sub> = v<sub>l</sub>) el robot sigue un movimiento recto.
+    - Al establecer velocidades opuestas (v<sub>r</sub> = -v<sub>l</sub>), el robot gira sobre su eje cenrtal.
+    - Las diferencias de velocidad (v<sub>r</sub> != v<sub>l</sub>) generaran trayectorias curvas .
+
+## Preguntas de Análisis
+
+1. ¿Qué ocurre cuando ambas ruedas tienen la misma velocidad?
+    - Matemáticamente, si calculamos la velocidad angular, obtendremos que la diferencia de las velocidades de ambas ruedas (las cuales van a la misma avelocidad) es igual a 0, por lo que el robot no está rotando, manteniendo una trayectoria lineal.
+    
+2. ¿Cómo cambia la trayectoria cuando las velocidades son diferentes?
+    - Ahora que las velocidades son diferentes, matemáticamente el robot adquiere de velocidad angular debido a que la diferencia entre las ruedas es distinta de cero, por lo que el robot toma trayectorias curvas. Suponiendo velocidades iguales (trayectoria lineal), a medida que aumenta la diferencia entre las velocidades el robot empieza a curvar su trayectoria, cada vez con radios de giro menores, hasta que las velocidades son opuestas, donde el robot empezará a rotar sobre su eje.
+
+3. ¿Qué ocurre cuando una rueda gira en sentido opuesto a la otra?
+    - El robot gira sobre su eje
+
+4. ¿Qué tipo de movimiento permite dibujar un circulo?
+    - Los movimientos curvos a velocidad constante, donde una velocidad de rueda es distinta a la otra, dependiendo de la diferencia de las velocidades, a mayor diferencia, menor radio de giro.
