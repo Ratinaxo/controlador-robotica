@@ -17,7 +17,7 @@ El repositorio contiene el código fuente correspondiente al controlador de un r
 Para replicar los experimentos y visualizar las trayectorias del robot:
 
 1.  **Clonar o descargar el repositorio:**
-    Descarga el repositorio en tu máquina utilizando el git o el método de preferencia:
+    Descarga el repositorio en tu máquina utilizando git o el método de preferencia:
     `git clone https://github.com/Ratinaxo/controlador-robotica.git`
 
 2.  **Crear el terreno:**
@@ -37,7 +37,7 @@ Para replicar los experimentos y visualizar las trayectorias del robot:
     Presiona el botón de reproducción en la interfaz de Webots. Dentro de la consola del simulador se imprimirá la telemetría en tiempo real (distancias, estados y coordenadas).
 
 ## Resultados Obtenidos
-La ejecución del controlador demostró que a partir de las matemáticas de la cinemática diferencial aplicada nuestro entorno, arrojando los siguientes resultados comprobables:
+La ejecución del controlador demostró a partir de las matemáticas de la cinemática diferencial aplicada nuestro entorno, arrojando los siguientes resultados comprobables:
 
 * **Validación de Ecuaciones Cinemáticas:** 
     - Se confirmó que al igualar las velocidades de las ruedas (v<sub>r</sub> = v<sub>l</sub>) el robot sigue un movimiento recto.
@@ -47,7 +47,7 @@ La ejecución del controlador demostró que a partir de las matemáticas de la c
 ## Preguntas de Análisis
 
 1. ¿Qué ocurre cuando ambas ruedas tienen la misma velocidad?
-    - Matemáticamente, si calculamos la velocidad angular, obtendremos que la diferencia de las velocidades de ambas ruedas (las cuales van a la misma avelocidad) es igual a 0, por lo que el robot no está rotando, manteniendo una trayectoria lineal.
+    - Matemáticamente, si calculamos la velocidad angular, obtendremos que la diferencia de las velocidades de ambas ruedas (las cuales van a la misma velocidad) es igual a 0, por lo que el robot no está rotando, manteniendo una trayectoria lineal.
     
 2. ¿Cómo cambia la trayectoria cuando las velocidades son diferentes?
     - Ahora que las velocidades son diferentes, matemáticamente el robot adquiere de velocidad angular debido a que la diferencia entre las ruedas es distinta de cero, por lo que el robot toma trayectorias curvas. Suponiendo velocidades iguales (trayectoria lineal), a medida que aumenta la diferencia entre las velocidades el robot empieza a curvar su trayectoria, cada vez con radios de giro menores, hasta que las velocidades son opuestas, donde el robot empezará a rotar sobre su eje.
