@@ -1,0 +1,103 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/CardboardBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.44952597901533214 0.4797386051771832 0.7535099633667481 1.7870622588119511
+  position -0.6463116368065639 -1.6250040466137665 2.637171741823359
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 2 1
+}
+CardboardBox {
+  translation -0.187448 0.243617 0.06
+  size 0.1 0.1 0.1
+}
+CardboardBox {
+  translation 0.103295 0.11123 0.06
+  name "cardboard box(2)"
+  size 0.1 0.1 0.1
+}
+CardboardBox {
+  translation 0.00398087 -0.343245 0.06
+  name "cardboard box(3)"
+  size 0.1 0.1 0.1
+}
+CardboardBox {
+  translation -0.364766 -0.291496 0.06
+  name "cardboard box(4)"
+  size 0.1 0.1 0.1
+}
+CardboardBox {
+  translation -0.714106 0.253128 0.06
+  name "cardboard box(5)"
+  size 0.1 0.1 0.1
+}
+CardboardBox {
+  translation -0.719291 -0.00779729 0.06
+  name "cardboard box(9)"
+  size 0.1 0.1 0.1
+}
+CardboardBox {
+  translation -0.593945 -0.261337 0.06
+  name "cardboard box(10)"
+  size 0.1 0.1 0.1
+}
+CardboardBox {
+  translation -0.364874 0.108502 0.06
+  name "cardboard box(11)"
+  size 0.1 0.1 0.1
+}
+CardboardBox {
+  translation 0.699735 0.238021 0.06
+  name "cardboard box(8)"
+  size 0.1 0.1 0.1
+}
+CardboardBox {
+  translation 0.749962 -0.286391 0.06
+  name "cardboard box(12)"
+  size 0.1 0.1 0.1
+}
+CardboardBox {
+  translation 0.56664 0.0135917 0.06
+  name "cardboard box(13)"
+  size 0.1 0.1 0.1
+}
+E-puck {
+  hidden position_0_0 -4.359851325854284e-09
+  hidden position_0_1 -4.359824599815995e-09
+  hidden linearVelocity_0 -1.0005918196084113e-17 1.9344008341047171e-10 0.15663138840926816
+  hidden angularVelocity_0 -1.3931082393050568e-08 2.5689705810727044e-15 -1.4022672756215685e-16
+  hidden linearVelocity_1 -4.114544968026348e-17 -1.5431580213318143e-09 0.1566366331810763
+  hidden angularVelocity_1 1.2231426755791438e-07 -3.0273036756185417e-15 2.0845789661701776e-15
+  hidden linearVelocity_2 -1.667064613493976e-17 2.090032317179913e-09 0.15663663389127336
+  hidden angularVelocity_2 -1.5017559304951947e-07 -5.058755897016786e-16 2.057996498868857e-15
+  translation -0.93 -4.968368795291777e-13 -0.005033235570903419
+  rotation -0.9999999999999829 1.844056698964163e-07 -1.0065745331612256e-08 4.457946365776258e-10
+  controller "lab2_controlador"
+}
+CardboardBox {
+  translation 0.181998 0.322563 0.06
+  name "cardboard box(6)"
+  size 0.1 0.1 0.1
+}
+CardboardBox {
+  translation -0.168787 -0.149315 0.06
+  name "cardboard box(1)"
+  size 0.1 0.1 0.1
+}
+CardboardBox {
+  translation 0.274064 -0.21594 0.06
+  name "cardboard box(7)"
+  size 0.1 0.1 0.1
+}
