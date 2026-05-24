@@ -17,28 +17,33 @@
 
 ### Pasos
 
-1. Clonar el repositorio:
+1. Crear nuevo directorio en Webots:
+    - En Webots, seleccionar `File > New > New Project Directory...`
+    - Seguir las instrucciones de creación de Webots
+
+2. Clonar el repositorio:
    ```bash
-   git clone https://github.com/Ratinaxo/controlador-robotica.git
+   git clone --single-branch --branch Lab2 https://github.com/Ratinaxo/controlador-robotica.git
    cd controlador-robotica
    ```
+   - Una vez clonado el archivo, tome los contenidos de la carpeta recien creada y muevala hacia la carpeta del proyecto creado por webots
 
-2. Abrir Webots y cargar el mundo:
+3. Abrir Webots y cargar el mundo:
     - `File > Open World` y seleccionar uno de los mapas `.wbt` dentro del directorio `worlds/` del repositorio.
         -   MundoEz.wbt es un mundo "fácil" donde el entorno son únicamente cajas.
         -   MundoHard.wbt es un mundo "dificil" donde el entorno es un laberinto .
         
-3. Asignar el controlador al robot:
+4. Asignar el controlador al robot:
    - Seleccionar el e-puck en la escena.
    - En el panel de propiedades, verificar que el controlador seleccionado sea `lab2_controlador.py`.
 
-4. Ejecutar la simulación con el botón `play` de Webots.
+5. Ejecutar la simulación con el botón `play` de Webots.
 
     -    Antes de ejecutar la simulación, podemos ir al directorio `data_sensores/` y correr el script de python `plotter_realtime.py`, con esto podremos visualizar en tiempo real los datos crudos y filtrados de los sensores del e-puck.
 
-5. Durante la ejecución, el archivo `datos_sensores.csv` se irá llenando con datos de los sensores se será almacenado en en el directorio `data_sensores/`.
+6. Durante la ejecución, el archivo `datos_sensores.csv` se irá llenando con datos de los sensores se será almacenado en en el directorio `data_sensores/`.
 
-6. Una vez finalizada la simulación podemos, podemos ir al directorio `data_sensores/` y visualizar los datos de los sensores con el script de python `plotter_estatico.py`.
+7. Una vez finalizada la simulación podemos, podemos ir al directorio `data_sensores/` y visualizar los datos de los sensores con el script de python `plotter_estatico.py`.
 
 ## Objetivo
 
@@ -100,13 +105,13 @@ El desplazamiento lineal de cada rueda se obtiene con `s = r·θ`, y el avance e
 
 ### 2. Lectura y normalización de sensores frontales
 
-Se promedian las lecturas crudas de los dos sensores frontales y se normaliza el resultado:
+Se promedian las lecturas crudas de los dos sensores frontales (ps7 y ps0) para obtener un frente unificado.
+Se trabaja directamente con la escala nativa del e-puck [0, 4095], donde entre mas grande el valor, más cerca estara el robot al obstáculo.
 
 ```
-z_k = ((ps7 + ps0) / 2) / 4095
+z_k = (ps7 + ps0) /2
 ```
 
-Esto produce un valor en `[0, 1]` donde `1` representa un obstáculo a máxima proximidad.
 
 ### 3. Filtro simple (EMA — Promedio Móvil Exponencial)
 
@@ -151,10 +156,10 @@ Donde `R = 0.05` es el ruido de medición (confianza en los sensores).
 
 ### 5. Lógica de navegación reactiva
 
-La decisión de movimiento se toma comparando `d̂_k` (estimación Kalman normalizada) con un umbral de seguridad `UMBRAL_OBSTACULO = 0.30`:
+La decisión de movimiento se toma comparando `d̂_k` (estimación Kalman normalizada) con un umbral de seguridad `UMBRAL_PELIGRO = 300.0`:
 
 ```
-SI d̂_k > UMBRAL_OBSTACULO:
+SI d̂_k > UMBRAL_PELIGRO:
     SI lateral_izq >= lateral_der:
         → GIRAR A LA DERECHA  (obstáculo más cerca por la izquierda)
     SINO:
@@ -185,13 +190,22 @@ Todos los datos se almacenan en `datos_sensores.csv` con las siguientes columnas
 ---
 
 ## Gráficos de señales
+### Gráfico de comparación de filtros (de 1 a 700 segundos)
+![alt text](image-1.png)
 
-*(Incluir aquí los gráficos generados a partir del CSV: señal cruda vs. filtrada vs. Kalman, avance de encoders, y acción tomada en el tiempo)*
+### Gráfico de comparación de filtros (de 1 a 30 segundos)
+![alt text](image-2.png)
 
-Ejemplo de análisis esperado:
-- La señal cruda `z_k` presenta picos y ruido ante obstáculos.
-- La señal filtrada EMA es más suave pero tiene retardo.
-- La estimación Kalman converge más rápido y es más estable que la EMA ante cambios reales.
+### Gráfico de comparación de filtros (de 610 a 620 segundos)
+![alt text](image.png)
+
+### Gráfico de comparación de filtros (de 450 a 500 segundos)
+![alt text](image-3.png)
+
+Estos graficos dan una representación visual de:
+- La volatilidad de la señal cruda de los sensores, muestra pics altos y señales inestables
+- El suavizado y lentitud del filtro EMA, aun muestra pics grandes, pero estabiliza las señales que recibe el robot. tambien se ve como reacciona de manera tardia a la mayoria de obstaculos que encuentra.
+- La corrección del filtro Kalman, el filtro reduce perfecciona los datos entregados por los sensores y por el EMA, dando una lectura de señales más estable y correcta para que el robot pueda reaccionar a tiempo
 
 ---
 
@@ -209,12 +223,25 @@ Ejemplo de análisis esperado:
 
 ## Análisis y conclusiones
 
-*(Completar con los resultados observados en la simulación)*
+### Análisis de Señales
+- Medición Cruda, Filtrada y con Kalman: La señal cruda del e-puck presenta un alto nivel de ruido, con pics falsos incluso cuando el entorno está relativamente libre. Al aplicar el filtro EMA, la señal se suaviza considerablemente, eliminando los pics falsos. Sin embargo, la estimación de Kalman logra el mejor rendimiento global: mantiene una curva limpia en zonas despejadas y reacciona con mayor precisión matemática al acercarse a los muros, sin los saltos erráticos de la señal cruda.
 
-**Aspectos a analizar:**
-- Comparación entre medición cruda, filtrada y estimación Kalman ante diferentes situaciones.
-- Efectividad del umbral elegido: ¿reacciona a tiempo? ¿gira demasiado pronto?
-- Comportamiento del filtro EMA vs. Kalman: el EMA reacciona más lento por su naturaleza promediadora, mientras que Kalman incorpora el modelo de movimiento y converge más rápido.
-- Sensibilidad al parámetro `R`: valores más bajos hacen que Kalman confíe más en los sensores (más reactivo pero más ruidoso); valores más altos lo hacen confiar más en los encoders (más estable pero más lento).
+- Comportamiento del filtro EMA contra Kalman: Se nota una clara diferencia entre los resultados de ambos filtros. El filtro EMA reacciona más lento porque depende del historial de las mediciones pasadas, introduciendo un desfase temporal a sus reacciones. Por otro lado, el Filtro Kalman incorpora el modelo cinemático del robot (avance estimado por odometría). Al "saber" que el robot está avanzando, Kalman anticipa el acercamiento al obstáculo y converge más rápido hacia el valor real, superando el retardo del EMA.
 
+### Análisis de Umbral
+El umbral de peligro establecido `UMBRAL_PELIGRO = 300.0`, resulto ser una medida efectiva para la reacción del robot.
+El robot reacciona a tiempo a los obstaculos, iniciando la fase de `ROTAR_EVASION` con un suficinte margen de seguridad físico para evitar la mayoria de obstaculos.7
+Si se hubiera seleccionado otro umbral más bajo, el robot hubiera presentado problemas a la hora de pasar por pasillos largos, debido a el ruido basal de los sensores
+
+### Análisis de sensibilidad de R
+El parametro `R` representa la confianza que el sistema le otorga a los sensores frente a la predicción odometrica de los encoders. 
+Al configurar `R_RUIDO_MEDICIÓN = 0.05` y `Q_RUIDO_PROCESO = 0.001`, se diseño un filtro que confía significativamente en los sensores. Esto ayuda a la navegación reactiva, ya que el robot confia en lo que detectan sus sensores y reaccionar en respuesta.
+Si se hubieran configurado valores de `R` más altos el filtro confiaria más en los datos entregados por los encoders lo que daria una señal muy estable pero con una reacción muy lenta 
+
+### Conclusiones
+Se demostro que la navegación basada en enconders acumula rapidamente un nivel de error espacial que evita que reaccione a los obstaculos que se podrian presentar en su camino, entonces para poder navegar tranquilamente en un entorno cerrado o dinamico la mejor opción es el uso de sensores más el uso de odometría.
+
+El uso del filtro Kalman resuelve el problema de depender de las lecturas crudas del e-puck, las cuales generan comandos erroneos y fallos debido al ruido que generan. El filtro aporta contexto cinemático, es decir, la fusión del modelo de movimiento con la validación sensorial es la mejor forma de desarollar un movimiento autonomo fluido.
+
+Aun así, el controlador implementado es capaz de evitar colisiones y puede moverse fluidamente entre los obstaculos, pero al carecer de memoria de las zonas ya recorridas es vulnerable a quedar atrapado en algoritmos tipo 'U', es decir, regresar más de una vez a lugares en los que ya a estado. Con este fallo se pueden seguir evolucionando el algoritmo en trabajos futuros.
 ---
