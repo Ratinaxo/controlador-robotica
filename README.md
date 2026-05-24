@@ -244,4 +244,5 @@ Se demostro que la navegación basada en enconders acumula rapidamente un nivel 
 El uso del filtro Kalman resuelve el problema de depender de las lecturas crudas del e-puck, las cuales generan comandos erroneos y fallos debido al ruido que generan. El filtro aporta contexto cinemático, es decir, la fusión del modelo de movimiento con la validación sensorial es la mejor forma de desarollar un movimiento autonomo fluido.
 
 Aun así, el controlador implementado es capaz de evitar colisiones y puede moverse fluidamente entre los obstaculos, pero al carecer de memoria de las zonas ya recorridas es vulnerable a quedar atrapado en algoritmos tipo 'U', es decir, regresar más de una vez a lugares en los que ya a estado. Con este fallo se pueden seguir evolucionando el algoritmo en trabajos futuros.
+
 ---
