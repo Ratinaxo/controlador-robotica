@@ -1,0 +1,300 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/apartment_structure/protos/Wall.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.11000835818142425 0.9722126184264838 -0.20664168432953547 1.4348233594531277
+  position -0.3623608000878591 0.9324751020350198 1.713356738088449
+}
+TexturedBackground {
+  luminosity 10
+}
+RectangleArena {
+  floorSize 2 2
+  floorTileSize 0.1 0.1
+}
+Wall {
+  translation -0.5 -0.975 0.0
+  name "wall_h(0)"
+  size 1.0 0.05 0.05
+}
+Wall {
+  translation 0.55 -0.975 0.0
+  name "wall_h(1)"
+  size 0.9 0.05 0.05
+}
+Wall {
+  translation -0.1 1.025 0.0
+  name "wall_h(2)"
+  size 1.8 0.05 0.05
+}
+Wall {
+  translation 0.95 1.025 0.0
+  name "wall_h(3)"
+  size 0.1 0.05 0.05
+}
+Wall {
+  translation -0.975 0.0 0.0
+  rotation 0 0 1 1.5708
+  name "wall_v(4)"
+  size 2.0 0.05 0.05
+}
+Wall {
+  translation 1.025 0.0 0.0
+  rotation 0 0 1 1.5708
+  name "wall_v(5)"
+  size 2.0 0.05 0.05
+}
+Wall {
+  translation 0.15 -0.75 0.0
+  name "wall_corner(0)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.55 -0.65 0.0
+  name "wall_corner(1)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.35 -0.65 0.0
+  name "wall_corner(2)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.15 -0.65 0.0
+  name "wall_corner(3)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.45 -0.65 0.0
+  name "wall_corner(4)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.65 -0.65 0.0
+  name "wall_corner(5)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.25 -0.55 0.0
+  name "wall_corner(6)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.05 -0.55 0.0
+  name "wall_corner(7)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.15 -0.55 0.0
+  name "wall_corner(8)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.35 -0.55 0.0
+  name "wall_corner(9)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.55 -0.45 0.0
+  name "wall_corner(10)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.65 -0.45 0.0
+  name "wall_corner(11)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.85 -0.45 0.0
+  name "wall_corner(12)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.65 -0.35 0.0
+  name "wall_corner(13)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.25 -0.35 0.0
+  name "wall_corner(14)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.15 -0.25 0.0
+  name "wall_corner(15)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.05 -0.25 0.0
+  name "wall_corner(16)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.25 -0.25 0.0
+  name "wall_corner(17)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.45 -0.25 0.0
+  name "wall_corner(18)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.75 -0.05 0.0
+  name "wall_corner(19)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.35 -0.05 0.0
+  name "wall_corner(20)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.25 -0.05 0.0
+  name "wall_corner(21)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.45 -0.05 0.0
+  name "wall_corner(22)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.55 0.05 0.0
+  name "wall_corner(23)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.55 0.15 0.0
+  name "wall_corner(24)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.25 0.15 0.0
+  name "wall_corner(25)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.25 0.25 0.0
+  name "wall_corner(26)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.75 0.25 0.0
+  name "wall_corner(27)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.05 0.35 0.0
+  name "wall_corner(28)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.15 0.45 0.0
+  name "wall_corner(29)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.25 0.55 0.0
+  name "wall_corner(30)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.65 0.55 0.0
+  name "wall_corner(31)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.25 0.65 0.0
+  name "wall_corner(32)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.05 0.65 0.0
+  name "wall_corner(33)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.55 0.65 0.0
+  name "wall_corner(34)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.55 0.75 0.0
+  name "wall_corner(35)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.35 0.75 0.0
+  name "wall_corner(36)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.85 0.75 0.0
+  name "wall_corner(37)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation -0.05 0.85 0.0
+  name "wall_corner(38)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.15 0.85 0.0
+  name "wall_corner(39)"
+  size 0.1 0.1 0.05
+}
+Wall {
+  translation 0.85 0.95 0.0
+  name "wall_corner(40)"
+  size 0.1 0.1 0.05
+}
+DEF START_MARKER Solid {
+  translation 0.9 0.9 0.00500035
+  rotation 1 0 0 1.5708
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1 0.85 0.2
+        roughness 0.6
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.01
+        radius 0.08
+        subdivision 24
+      }
+    }
+  ]
+  name "start"
+}
+DEF GOAL_MARKER Solid {
+  translation 0.05 -0.95 0.0049993
+  rotation 1 0 0 1.5708
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.9 0.15 0.1
+        roughness 0.6
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.01
+        radius 0.08
+        subdivision 24
+      }
+    }
+  ]
+  name "goal"
+}
+E-puck {
+  translation 0.9 0.9 0
+  rotation 0 0 1 -1.5707953071795862
+  controller "lab2_controlador"
+}
