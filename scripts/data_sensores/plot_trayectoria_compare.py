@@ -22,6 +22,7 @@ except ImportError:
 SCRIPTS_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SCRIPTS_DIR))
 
+from occupancy_grid import DEFAULT_SPEC, grid_spec_from_dict
 from paths import (
     CONTROLLER_TRAJECTORY_CSV,
     TRAJECTORY_COMPARE_PNG,
@@ -32,10 +33,17 @@ from plot_style import add_legend_side_arg, legend_loc
 DEFAULT_CSV = CONTROLLER_TRAJECTORY_CSV
 DEFAULT_OUTPUT = TRAJECTORY_COMPARE_PNG
 
-GRID_SIZE = 20
-CELL_SIZE = 0.1
-ORIGIN = -1.0
 ANIMATION_INTERVAL_MS = 500
+
+_csv_read_error_logged = False
+
+
+def load_grid_spec(grid_file: Path) -> tuple[int, float, float]:
+    if not grid_file.exists():
+        return DEFAULT_SPEC.size, DEFAULT_SPEC.cell, DEFAULT_SPEC.origin
+    data = json.loads(grid_file.read_text(encoding="utf-8"))
+    spec = grid_spec_from_dict(data)
+    return spec.size, spec.cell, spec.origin
 
 
 def parse_args() -> argparse.Namespace:
@@ -101,6 +109,7 @@ def load_start_goal_from_grid(grid_file: Path) -> tuple[tuple[float, float], tup
 
 
 def read_trajectory_csv(csv_file: Path):
+    global _csv_read_error_logged
     if not csv_file.exists():
         return None
 
@@ -112,7 +121,13 @@ def read_trajectory_csv(csv_file: Path):
         if len(df) < 1:
             return None
         return df
-    except Exception:
+    except Exception as exc:
+        if not _csv_read_error_logged:
+            print(
+                f"Advertencia: no se pudo leer {csv_file} ({exc}); reintentando...",
+                file=sys.stderr,
+            )
+            _csv_read_error_logged = True
         return None
 
 
@@ -137,6 +152,9 @@ class TrajectoryComparePlot:
         output_file: Path,
         realtime: bool,
         legend_side: str = "left",
+        grid_size: int = DEFAULT_SPEC.size,
+        cell_size: float = DEFAULT_SPEC.cell,
+        origin: float = DEFAULT_SPEC.origin,
     ) -> None:
         self.planned = planned
         self.start = start
@@ -147,14 +165,19 @@ class TrajectoryComparePlot:
         self.output_file = output_file
         self.realtime = realtime
         self.legend_side = legend_side
+        self.grid_size = grid_size
+        self.cell_size = cell_size
+        self.origin = origin
+        self._csv_missing_warned = False
 
         self.fig, self.ax = plt.subplots(figsize=(8, 8))
         self.fig.canvas.manager.set_window_title("Ruta A* vs Trayectoria Ejecutada")
         self._setup_axes()
 
     def _setup_axes(self) -> None:
-        self.ax.set_xlim(ORIGIN, ORIGIN + GRID_SIZE * CELL_SIZE)
-        self.ax.set_ylim(ORIGIN, ORIGIN + GRID_SIZE * CELL_SIZE)
+        world_max = self.origin + self.grid_size * self.cell_size
+        self.ax.set_xlim(self.origin, world_max)
+        self.ax.set_ylim(self.origin, world_max)
         self.ax.set_xlabel("X (m)")
         self.ax.set_ylabel("Y (m)")
         self.ax.set_aspect("equal")
@@ -162,7 +185,7 @@ class TrajectoryComparePlot:
 
         if self.occupancy is not None:
             cmap = ListedColormap(["#b8e6b8", "#404040"])
-            extent = [ORIGIN, ORIGIN + GRID_SIZE * CELL_SIZE, ORIGIN, ORIGIN + GRID_SIZE * CELL_SIZE]
+            extent = [self.origin, world_max, self.origin, world_max]
             self.ax.imshow(
                 self.occupancy,
                 cmap=cmap,
@@ -212,7 +235,14 @@ class TrajectoryComparePlot:
     def _render_frame(self) -> None:
         df = read_trajectory_csv(self.csv_file)
         if df is None:
-            self.ax.set_title(f"Esperando {self.csv_file} ...")
+            self.ax.set_title("Esperando...")
+            if self.realtime and not self._csv_missing_warned:
+                print(
+                    f"Advertencia: CSV no encontrado o vacio: {self.csv_file.resolve()}\n"
+                    "  Verifica controllerArgs en Webots (--csv data_sensores/trayectoria_ejecutada.csv)",
+                    file=sys.stderr,
+                )
+                self._csv_missing_warned = True
             return
 
         executed = list(zip(df["x_m"].astype(float), df["y_m"].astype(float)))
@@ -237,6 +267,11 @@ class TrajectoryComparePlot:
 
     def run(self) -> None:
         if self.realtime:
+            print(
+                f"Vigilando CSV en tiempo real: {self.csv_file.resolve()}",
+                file=sys.stderr,
+            )
+
             def update(_frame):
                 self._render_frame()
                 return self.executed_line, self.current_point
@@ -249,7 +284,8 @@ class TrajectoryComparePlot:
         self._render_frame()
         self.fig.savefig(self.output_file, dpi=150, bbox_inches="tight")
         print(f"Wrote {self.output_file}")
-        if len(read_trajectory_csv(self.csv_file) or []) == 0:
+        df = read_trajectory_csv(self.csv_file)
+        if df is None or len(df) == 0:
             print("Advertencia: CSV vacio o inexistente; PNG solo muestra ruta planificada.")
 
 
@@ -274,6 +310,8 @@ def main() -> int:
     if marker_override is not None:
         start, goal = marker_override
 
+    grid_size, cell_size, origin = load_grid_spec(args.grid)
+
     plot = TrajectoryComparePlot(
         planned=planned,
         start=start,
@@ -284,6 +322,9 @@ def main() -> int:
         output_file=args.output,
         realtime=not args.no_realtime,
         legend_side=args.legend,
+        grid_size=grid_size,
+        cell_size=cell_size,
+        origin=origin,
     )
     plot.run()
     return 0

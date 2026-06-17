@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 from astar import astar, path_length_m, path_to_dict
-from occupancy_grid import GRID, load_grid_json
+from occupancy_grid import grid_size_from_grid, grid_spec_from_dict, load_grid_json
 from paths import artifact_paths, ensure_output_dir
 from plot_style import add_legend_side_arg
 
@@ -51,13 +51,14 @@ def validate_path(
     start: tuple[int, int],
     goal: tuple[int, int],
 ) -> None:
+    size = grid_size_from_grid(grid)
     if path_cells[0] != start:
         raise ValueError(f"Path must start at {start}, got {path_cells[0]}")
     if path_cells[-1] != goal:
         raise ValueError(f"Path must end at {goal}, got {path_cells[-1]}")
 
     for cx, cy in path_cells:
-        if not (0 <= cx < GRID and 0 <= cy < GRID):
+        if not (0 <= cx < size and 0 <= cy < size):
             raise ValueError(f"Path cell {(cx, cy)} is outside grid")
         if grid[cy][cx] != 0:
             raise ValueError(f"Path cell {(cx, cy)} is not free")
@@ -94,10 +95,10 @@ def main() -> int:
         return 1
 
     data = load_grid_json(args.json)
+    spec = grid_spec_from_dict(data)
     grid = data["occupancy"]
     start = tuple(data["start_cell"])
     goal = tuple(data["goal_cell"])
-    cell_size = data.get("cell_size_m", 0.1)
     world = data.get("world", args.name)
 
     path_cells = astar(grid, start, goal)
@@ -114,16 +115,18 @@ def main() -> int:
         source_grid=str(args.json),
         start=start,
         goal=goal,
-        cell_size=cell_size,
+        spec=spec,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
     print(f"World: {world}")
+    print(f"Grid: {spec.size}x{spec.size} (cell={spec.cell} m)")
     print(f"Start cell: {start}")
     print(f"Goal cell: {goal}")
     print(f"Path nodes: {len(path_cells)}")
-    print(f"Path length: {path_length_m(path_cells, cell_size)} m")
+    print(f"Path segments: {payload['length_segments']}")
+    print(f"Path length: {payload['length_m']} m")
     print(f"Wrote path JSON: {args.output}")
 
     if args.plot:
@@ -143,6 +146,7 @@ def main() -> int:
             output_path=args.plot_output,
             show=not args.no_show,
             legend_side=args.legend,
+            grid_size=spec.size,
         )
 
     return 0

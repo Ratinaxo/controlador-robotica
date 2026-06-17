@@ -1,5 +1,3 @@
-"""Webots controller: follow A* path with straight segments and 90-degree turns."""
-
 from __future__ import annotations
 
 import argparse
@@ -20,11 +18,22 @@ V_MAX = 0.06
 SEGMENT_TOL = 0.005
 TURN_TOL = math.radians(1)
 W_TURN = 1.2
-TURN_EXTRA = math.radians(10)
+TURN_EXTRA = math.radians(9.4245)
+SEGMENT_EXTRA = 0.0
 
-DEFAULT_PATH = Path(__file__).resolve().parents[2] / "scripts" / "output" / "laberinto1_path.json"
-DEFAULT_CSV = Path(__file__).resolve().parents[2] / "data_sensores" / "trayectoria_ejecutada.csv"
+REPO_ROOT = Path(__file__).resolve().parents[2]
+CONTROLLER_DIR = Path(__file__).resolve().parent
+DEFAULT_PATH = REPO_ROOT / "scripts" / "output" / "laberinto1_path.json"
+DEFAULT_CSV = REPO_ROOT / "data_sensores" / "trayectoria_ejecutada.csv"
 TELEMETRY_INTERVAL_S = 1.0
+
+
+def resolve_repo_path(path: Path) -> Path:
+    if path.is_absolute():
+        return path.resolve()
+    if path.parts and path.parts[0] == "..":
+        return (CONTROLLER_DIR / path).resolve()
+    return (REPO_ROOT / path).resolve()
 
 
 def parse_args() -> argparse.Namespace:
@@ -41,7 +50,10 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_CSV,
         help="Output CSV for executed trajectory",
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    args.path = resolve_repo_path(args.path)
+    args.csv = resolve_repo_path(args.csv)
+    return args
 
 
 def normalize_angle(angle: float) -> float:
@@ -298,7 +310,7 @@ class PathFollower:
         self.turn_accumulated_rad += delta_phi
 
     def advance_complete(self) -> bool:
-        return self.segment_driven_m >= self.segment_length_m - SEGMENT_TOL
+        return self.segment_driven_m >= self.segment_length_m - SEGMENT_TOL + SEGMENT_EXTRA
 
     def turn_complete(self) -> bool:
         if abs(self.required_turn_rad) < TURN_TOL:
@@ -340,8 +352,8 @@ def main() -> int:
     follower.begin_turn(follower.target_heading, start_phi)
     logger = TrajectoryLogger(args.csv)
 
-    print(f"[Sistema] Ruta cargada: {args.path}")
-    print(f"[Sistema] CSV trayectoria: {args.csv}")
+    print(f"[Sistema] Ruta cargada: {args.path.resolve()}")
+    print(f"[Sistema] CSV trayectoria: {args.csv.resolve()}")
     print(f"[Sistema] Waypoints: {len(waypoints)} | Longitud planificada: {follower.planned_length_m} m")
     print(f"[Sistema] Inicio: {start_xy} | Meta: {goal_xy}")
     print(f"[Sistema] Pose inicial odom: ({drive.x:.3f}, {drive.y:.3f}, {drive.phi:.3f})")
@@ -414,7 +426,7 @@ def main() -> int:
                             f"[t={sim_time:.1f}s] META alcanzada en {reached}. "
                             f"Waypoints: {len(waypoints)}/{len(waypoints)}. "
                             f"Distancia planificada: {follower.planned_length_m} m | "
-                            f"Distancia odometrica: {follower.distance_traveled_m:.2f} m"
+                            f"Distancia recorrida: {follower.distance_traveled_m:.2f} m"
                         )
                         finished_logged = True
                     else:

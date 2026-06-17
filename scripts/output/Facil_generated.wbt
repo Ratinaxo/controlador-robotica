@@ -1,0 +1,287 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/apartment_structure/protos/Wall.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.11000835818142425 0.9722126184264838 -0.20664168432953547 1.4348233594531277
+  position -0.3623608000878591 0.9324751020350198 1.713356738088449
+}
+TexturedBackground {
+  luminosity 10
+}
+RectangleArena {
+  floorSize 0.8 0.8
+  floorTileSize 0.08 0.08
+}
+Wall {
+  translation -0.36 -0.36 0.0
+  name "wall_cell(0,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.28 -0.36 0.0
+  name "wall_cell(1,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.2 -0.36 0.0
+  name "wall_cell(2,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.12 -0.36 0.0
+  name "wall_cell(3,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.04 -0.36 0.0
+  name "wall_cell(4,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.04 -0.36 0.0
+  name "wall_cell(5,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.12 -0.36 0.0
+  name "wall_cell(6,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.2 -0.36 0.0
+  name "wall_cell(7,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.28 -0.36 0.0
+  name "wall_cell(8,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.36 -0.36 0.0
+  name "wall_cell(9,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.36 -0.28 0.0
+  name "wall_cell(0,1)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.36 -0.28 0.0
+  name "wall_cell(9,1)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.36 -0.2 0.0
+  name "wall_cell(0,2)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.36 -0.2 0.0
+  name "wall_cell(9,2)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.36 -0.12 0.0
+  name "wall_cell(0,3)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.2 -0.12 0.0
+  name "wall_cell(2,3)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.04 -0.12 0.0
+  name "wall_cell(4,3)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.12 -0.12 0.0
+  name "wall_cell(6,3)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.36 -0.12 0.0
+  name "wall_cell(9,3)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.36 -0.04 0.0
+  name "wall_cell(0,4)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.36 -0.04 0.0
+  name "wall_cell(9,4)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.36 0.04 0.0
+  name "wall_cell(0,5)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.04 0.04 0.0
+  name "wall_cell(4,5)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.12 0.04 0.0
+  name "wall_cell(6,5)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.36 0.04 0.0
+  name "wall_cell(9,5)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.36 0.12 0.0
+  name "wall_cell(0,6)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.12 0.12 0.0
+  name "wall_cell(3,6)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.36 0.12 0.0
+  name "wall_cell(9,6)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.36 0.2 0.0
+  name "wall_cell(0,7)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.04 0.2 0.0
+  name "wall_cell(4,7)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.12 0.2 0.0
+  name "wall_cell(6,7)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.36 0.28 0.0
+  name "wall_cell(0,8)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.2 0.28 0.0
+  name "wall_cell(7,8)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.36 0.28 0.0
+  name "wall_cell(9,8)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.36 0.36 0.0
+  name "wall_cell(0,9)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.28 0.36 0.0
+  name "wall_cell(1,9)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.2 0.36 0.0
+  name "wall_cell(2,9)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.12 0.36 0.0
+  name "wall_cell(3,9)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.04 0.36 0.0
+  name "wall_cell(4,9)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.04 0.36 0.0
+  name "wall_cell(5,9)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.12 0.36 0.0
+  name "wall_cell(6,9)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.2 0.36 0.0
+  name "wall_cell(7,9)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.28 0.36 0.0
+  name "wall_cell(8,9)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.36 0.36 0.0
+  name "wall_cell(9,9)"
+  size 0.08 0.08 0.05
+}
+DEF START_MARKER Solid {
+  translation -0.28 -0.2 0.005
+  rotation 1 0 0 1.5708
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1 0.85 0.2
+        roughness 0.6
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.01
+        radius 0.08
+        subdivision 24
+      }
+    }
+  ]
+  name "start"
+}
+DEF GOAL_MARKER Solid {
+  translation 0.36 0.2 0.005
+  rotation 1 0 0 1.5708
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.9 0.15 0.1
+        roughness 0.6
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.01
+        radius 0.08
+        subdivision 24
+      }
+    }
+  ]
+  name "goal"
+}
+E-puck {
+  translation -0.28 -0.2 0
+  rotation 0 0 1 -1.5707953071795862
+  controller "controlador_Proyectofinal"
+  controllerArgs [
+    "--path" "scripts/output/Facil_path.json"
+    "--csv" "data_sensores/trayectoria_ejecutada.csv"
+  ]
+}

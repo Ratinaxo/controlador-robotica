@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from occupancy_grid import GRID, world_to_cell
+from occupancy_grid import DEFAULT_SPEC, GridSpec, world_to_cell
 
 _MARKER_BLOCK = re.compile(
     r"DEF\s+(START_MARKER|GOAL_MARKER)\s+Solid\s*\{.*?translation\s+"
@@ -37,18 +37,21 @@ def parse_markers_from_wbt(path: str | Path) -> dict[str, Any]:
     }
 
 
-def resolve_start_goal_cells(wbt_path: str | Path) -> tuple[tuple[int, int], tuple[int, int]]:
+def resolve_start_goal_cells(
+    wbt_path: str | Path,
+    spec: GridSpec = DEFAULT_SPEC,
+) -> tuple[tuple[int, int], tuple[int, int]]:
     markers = parse_markers_from_wbt(wbt_path)
-    start_cell = world_to_cell(markers["start_world"][0], markers["start_world"][1])
-    goal_cell = world_to_cell(markers["goal_world"][0], markers["goal_world"][1])
+    start_cell = world_to_cell(markers["start_world"][0], markers["start_world"][1], spec)
+    goal_cell = world_to_cell(markers["goal_world"][0], markers["goal_world"][1], spec)
 
     if start_cell is None:
         raise ValueError(
-            f"START_MARKER at {markers['start_world']} is outside the {GRID}x{GRID} grid"
+            f"START_MARKER at {markers['start_world']} is outside the {spec.size}x{spec.size} grid"
         )
     if goal_cell is None:
         raise ValueError(
-            f"GOAL_MARKER at {markers['goal_world']} is outside the {GRID}x{GRID} grid"
+            f"GOAL_MARKER at {markers['goal_world']} is outside the {spec.size}x{spec.size} grid"
         )
     return start_cell, goal_cell
 

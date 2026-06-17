@@ -18,10 +18,12 @@ except ImportError:
 from occupancy_grid import (
     DEFAULT_DIFFICULTY,
     DEFAULT_SEED,
-    GRID,
-    MAX_DIFFICULTY,
+    DEFAULT_SPEC,
+    GridSpec,
     MIN_DIFFICULTY,
+    MAX_DIFFICULTY,
     build_occupancy_grid,
+    grid_spec_from_dict,
     is_connected,
     load_grid_json,
     parse_cell_arg,
@@ -45,15 +47,17 @@ def plot_occupancy_grid(
     output_path: str | Path | None = None,
     show: bool = True,
     legend_side: str = "right",
+    grid_size: int | None = None,
 ) -> None:
+    size = grid_size if grid_size is not None else len(grid)
     cmap = ListedColormap(["#b8e6b8", "#404040"])
     fig, ax = plt.subplots(figsize=(8, 8))
 
     ax.imshow(grid, cmap=cmap, origin="lower", vmin=0, vmax=1, interpolation="nearest")
-    ax.set_xlim(-0.5, GRID - 0.5)
-    ax.set_ylim(-0.5, GRID - 0.5)
-    ax.set_xticks(range(GRID))
-    ax.set_yticks(range(GRID))
+    ax.set_xlim(-0.5, size - 0.5)
+    ax.set_ylim(-0.5, size - 0.5)
+    ax.set_xticks(range(size))
+    ax.set_yticks(range(size))
     ax.set_xlabel("Celda X (cx)")
     ax.set_ylabel("Celda Y (cy)")
     ax.set_title(title)
@@ -144,6 +148,18 @@ def parse_args() -> argparse.Namespace:
         metavar=f"{MIN_DIFFICULTY}-{MAX_DIFFICULTY}",
         help="Maze density when using --seed (1=few walls, 10=many walls)",
     )
+    parser.add_argument(
+        "--grid-size",
+        type=int,
+        default=None,
+        help=f"Grid size when using --seed (default: {DEFAULT_SPEC.size})",
+    )
+    parser.add_argument(
+        "--cell-size",
+        type=float,
+        default=None,
+        help=f"Cell size in meters when using --seed (default: {DEFAULT_SPEC.cell})",
+    )
     parser.add_argument("--no-show", action="store_true", help="Do not open interactive window")
     parser.add_argument("--no-save", action="store_true", help="Do not save PNG file")
     add_legend_side_arg(parser, default="right")
@@ -166,28 +182,40 @@ def resolve_artifacts(args: argparse.Namespace) -> tuple[str, dict[str, Path]]:
     return artifacts["world"], artifacts
 
 
-def load_grid_data(args: argparse.Namespace) -> tuple[list[list[int]], tuple[int, int], tuple[int, int], str]:
+def load_grid_data(
+    args: argparse.Namespace,
+) -> tuple[list[list[int]], tuple[int, int], tuple[int, int], str, int]:
     world, artifacts = resolve_artifacts(args)
 
     if args.seed is not None:
         if args.start_cell is None or args.goal_cell is None:
             print("Error: --start-cell and --goal-cell are required when using --seed", file=sys.stderr)
             sys.exit(1)
+        grid_size = args.grid_size if args.grid_size is not None else DEFAULT_SPEC.size
+        cell_size = args.cell_size if args.cell_size is not None else DEFAULT_SPEC.cell
         try:
-            start = parse_cell_arg(args.start_cell, "--start-cell")
-            goal = parse_cell_arg(args.goal_cell, "--goal-cell")
+            spec = GridSpec(size=grid_size, cell=cell_size)
         except ValueError as exc:
             print(f"Error: {exc}", file=sys.stderr)
             sys.exit(1)
-        grid = build_occupancy_grid(args.seed, start=start, goal=goal, difficulty=args.difficulty)
+        try:
+            start = parse_cell_arg(args.start_cell, "--start-cell", spec)
+            goal = parse_cell_arg(args.goal_cell, "--goal-cell", spec)
+        except ValueError as exc:
+            print(f"Error: {exc}", file=sys.stderr)
+            sys.exit(1)
+        grid = build_occupancy_grid(args.seed, start=start, goal=goal, difficulty=args.difficulty, spec=spec)
         if not is_connected(grid, start, goal):
             print(
                 f"Error: no path from {start} to {goal} (seed={args.seed}, difficulty={args.difficulty})",
                 file=sys.stderr,
             )
             sys.exit(1)
-        title = f"{world} - Grilla de ocupacion (seed={args.seed}, difficulty={args.difficulty})"
-        return grid, start, goal, title
+        title = (
+            f"{world} - Grilla de ocupacion "
+            f"({spec.size}x{spec.size}, cell={spec.cell}m, seed={args.seed}, difficulty={args.difficulty})"
+        )
+        return grid, start, goal, title, spec.size
 
     json_path = args.json if args.json is not None else artifacts.get("grid_json")
     if json_path is None:
@@ -204,14 +232,18 @@ def load_grid_data(args: argparse.Namespace) -> tuple[list[list[int]], tuple[int
         sys.exit(1)
 
     data = load_grid_json(json_path)
+    spec = grid_spec_from_dict(data)
     grid = data["occupancy"]
     start = tuple(data["start_cell"])
     goal = tuple(data["goal_cell"])
     seed = data.get("seed", DEFAULT_SEED)
     difficulty = data.get("difficulty", DEFAULT_DIFFICULTY)
     world = data.get("world", world)
-    title = f"{world} - Grilla de ocupacion (seed={seed}, difficulty={difficulty})"
-    return grid, start, goal, title
+    title = (
+        f"{world} - Grilla de ocupacion "
+        f"({spec.size}x{spec.size}, cell={spec.cell}m, seed={seed}, difficulty={difficulty})"
+    )
+    return grid, start, goal, title, spec.size
 
 
 def main() -> int:
@@ -223,7 +255,7 @@ def main() -> int:
     if args.output is None and artifacts:
         args.output = artifacts["grid_png"]
 
-    grid, start, goal, title = load_grid_data(args)
+    grid, start, goal, title, grid_size = load_grid_data(args)
 
     path = None
     if args.path is not None:
@@ -248,6 +280,7 @@ def main() -> int:
         output_path=None if args.no_save else args.output,
         show=not args.no_show,
         legend_side=args.legend,
+        grid_size=grid_size,
     )
     return 0
 

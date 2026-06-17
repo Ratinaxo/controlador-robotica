@@ -10,9 +10,11 @@ from pathlib import Path
 from occupancy_grid import (
     DEFAULT_DIFFICULTY,
     DEFAULT_SEED,
-    GRID,
-    MAX_DIFFICULTY,
+    DEFAULT_SPEC,
+    GridSpec,
+    MIN_GRID_SIZE,
     MIN_DIFFICULTY,
+    MAX_DIFFICULTY,
     build_occupancy_grid,
     cell_to_world,
     count_free_cells,
@@ -22,6 +24,7 @@ from occupancy_grid import (
     parse_cell_arg,
     save_grid_csv,
     save_grid_json,
+    validate_grid_size,
 )
 from paths import artifact_paths, ensure_output_dir
 
@@ -44,6 +47,18 @@ def parse_args() -> argparse.Namespace:
         required=True,
         metavar="CX,CY",
         help="Goal cell coordinates (e.g. 10,0)",
+    )
+    parser.add_argument(
+        "--grid-size",
+        type=int,
+        default=DEFAULT_SPEC.size,
+        help=f"Square grid size N×N (default: {DEFAULT_SPEC.size}, min: {MIN_GRID_SIZE})",
+    )
+    parser.add_argument(
+        "--cell-size",
+        type=float,
+        default=DEFAULT_SPEC.cell,
+        help=f"Cell size in meters (default: {DEFAULT_SPEC.cell})",
     )
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED, help="Maze generation seed")
     parser.add_argument(
@@ -79,8 +94,15 @@ def main() -> int:
         args.csv = artifacts["grid_csv"]
 
     try:
-        start = parse_cell_arg(args.start_cell, "--start-cell")
-        goal = parse_cell_arg(args.goal_cell, "--goal-cell")
+        validate_grid_size(args.grid_size)
+        spec = GridSpec(size=args.grid_size, cell=args.cell_size)
+    except ValueError as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 1
+
+    try:
+        start = parse_cell_arg(args.start_cell, "--start-cell", spec)
+        goal = parse_cell_arg(args.goal_cell, "--goal-cell", spec)
     except ValueError as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
@@ -89,7 +111,13 @@ def main() -> int:
         print("Error: start and goal must be different cells", file=sys.stderr)
         return 1
 
-    grid = build_occupancy_grid(args.seed, start=start, goal=goal, difficulty=args.difficulty)
+    grid = build_occupancy_grid(
+        args.seed,
+        start=start,
+        goal=goal,
+        difficulty=args.difficulty,
+        spec=spec,
+    )
 
     if not is_connected(grid, start, goal):
         print(
@@ -99,8 +127,8 @@ def main() -> int:
         print("Try lowering --difficulty or changing --seed.", file=sys.stderr)
         return 1
 
-    start_world = cell_to_world(start[0], start[1])
-    goal_world = cell_to_world(goal[0], goal[1])
+    start_world = cell_to_world(start[0], start[1], spec)
+    goal_world = cell_to_world(goal[0], goal[1], spec)
 
     ensure_output_dir()
     args.json.parent.mkdir(parents=True, exist_ok=True)
@@ -115,17 +143,18 @@ def main() -> int:
         start_world=start_world,
         goal_world=goal_world,
         difficulty=args.difficulty,
+        spec=spec,
     )
     save_grid_csv(grid, args.csv)
 
     loaded = load_grid_json(args.json)
-    start_center = cell_to_world(start[0], start[1])
-    goal_center = cell_to_world(goal[0], goal[1])
+    start_center = cell_to_world(start[0], start[1], spec)
+    goal_center = cell_to_world(goal[0], goal[1], spec)
 
     print(f"World: {args.name}")
     print(f"Seed: {args.seed}")
     print(f"Difficulty: {args.difficulty}")
-    print(f"Grid: {GRID}x{GRID} (cell={loaded['cell_size_m']} m)")
+    print(f"Grid: {spec.size}x{spec.size} (cell={loaded['cell_size_m']} m, rooms={spec.rooms})")
     print(f"Start cell: {start} (world {start_world}, center {start_center})")
     print(f"Goal cell: {goal} (world {goal_world}, center {goal_center})")
     print(f"Free cells: {count_free_cells(grid)}")
