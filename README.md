@@ -227,7 +227,9 @@ Las siguientes métricas sugeridas por la rúbrica **no fueron medidas automáti
 
 ### Video demostrativo
 
-[DemoRobotica.mp4](DemoRobotica.mp4) — ejecución del robot en Webots en los escenarios de prueba.
+[DemoControladorFacil.mp4](DemoControladorFacil.mp4) — ejecución del robot en Webots en el escenario Facil.
+
+[DemoControladorDificil.mp4](DemoControladorDificil.mp4) — ejecución del robot en Webots en el escenario Dificil.
 
 ---
 
