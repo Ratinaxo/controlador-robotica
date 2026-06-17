@@ -1,0 +1,16 @@
+{
+  "world": "Facil",
+  "csv": "/home/ratin/Escritorio/controlador-robotica-Proyectofinal/data_sensores/Facil_trayectoria.csv",
+  "path_json": "/home/ratin/Escritorio/controlador-robotica-Proyectofinal/scripts/output/Facil_path.json",
+  "computed_at": "2026-06-17T06:53:32.971303+00:00",
+  "success": true,
+  "time_to_goal_s": 37.536,
+  "planned_length_m": 1.04,
+  "executed_length_m": 1.0456,
+  "length_delta_m": 0.0056,
+  "final_position_error_m": 0.00012,
+  "goal_x_m": 0.36,
+  "goal_y_m": 0.2,
+  "final_x_m": 0.36,
+  "final_y_m": 0.20012
+}

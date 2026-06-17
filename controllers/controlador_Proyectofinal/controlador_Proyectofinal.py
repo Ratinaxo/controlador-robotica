@@ -24,7 +24,6 @@ SEGMENT_EXTRA = 0.0
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CONTROLLER_DIR = Path(__file__).resolve().parent
 DEFAULT_PATH = REPO_ROOT / "scripts" / "output" / "laberinto1_path.json"
-DEFAULT_CSV = REPO_ROOT / "data_sensores" / "trayectoria_ejecutada.csv"
 TELEMETRY_INTERVAL_S = 1.0
 
 
@@ -34,6 +33,20 @@ def resolve_repo_path(path: Path) -> Path:
     if path.parts and path.parts[0] == "..":
         return (CONTROLLER_DIR / path).resolve()
     return (REPO_ROOT / path).resolve()
+
+
+def world_name_from_path(path: Path) -> str | None:
+    stem = path.stem
+    if stem.endswith("_path"):
+        return stem[: -len("_path")]
+    return None
+
+
+def default_csv_for_path(path: Path) -> Path:
+    name = world_name_from_path(path)
+    if name:
+        return REPO_ROOT / "data_sensores" / f"{name}_trayectoria.csv"
+    return REPO_ROOT / "data_sensores" / "trayectoria_ejecutada.csv"
 
 
 def parse_args() -> argparse.Namespace:
@@ -47,12 +60,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--csv",
         type=Path,
-        default=DEFAULT_CSV,
-        help="Output CSV for executed trajectory",
+        default=None,
+        help="Output CSV for executed trajectory (default: data_sensores/{name}_trayectoria.csv from --path)",
     )
     args = parser.parse_args()
     args.path = resolve_repo_path(args.path)
-    args.csv = resolve_repo_path(args.csv)
+    if args.csv is None:
+        args.csv = default_csv_for_path(args.path)
+    else:
+        args.csv = resolve_repo_path(args.csv)
     return args
 
 

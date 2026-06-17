@@ -282,6 +282,6 @@ E-puck {
   controller "controlador_Proyectofinal"
   controllerArgs [
     "--path" "scripts/output/Facil_path.json"
-    "--csv" "data_sensores/trayectoria_ejecutada.csv"
+    "--csv" "data_sensores/Facil_trayectoria.csv"
   ]
 }

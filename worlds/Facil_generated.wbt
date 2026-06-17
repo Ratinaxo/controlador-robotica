@@ -284,6 +284,6 @@ E-puck {
     "--path"
     "../../scripts/output/Facil_path.json"
     "--csv"
-    "../../data_sensores/trayectoria_ejecutada.csv"
+    "../../data_sensores/Facil_trayectoria.csv"
   ]
 }

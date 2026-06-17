@@ -14,6 +14,20 @@ CONTROLLER_TRAJECTORY_CSV = REPO_ROOT / "data_sensores" / "trayectoria_ejecutada
 TRAJECTORY_COMPARE_PNG = DATA_DIR / "trayectoria_compare.png"
 SENSORS_CSV = DATA_DIR / "datos_sensores.csv"
 SENSORS_REPORT_PNG = DATA_DIR / "reporte_final_sensores.png"
+SCENARIOS_COMPARISON_PNG = OUTPUT_DIR / "scenarios_comparison.png"
+DATA_SENSORS_DIR = REPO_ROOT / "data_sensores"
+
+
+def trajectory_csv_for(name: str) -> Path:
+    return DATA_SENSORS_DIR / f"{name}_trayectoria.csv"
+
+
+def metrics_json_for(name: str) -> Path:
+    return OUTPUT_DIR / f"{name}_metrics.json"
+
+
+def metrics_png_for(name: str) -> Path:
+    return OUTPUT_DIR / f"{name}_metrics.png"
 
 
 class ArtifactPaths(TypedDict):
@@ -24,6 +38,7 @@ class ArtifactPaths(TypedDict):
     path_json: Path
     path_png: Path
     generated_wbt: Path
+    trajectory_csv: Path
 
 
 def grid_json_for(name: str) -> Path:
@@ -59,6 +74,7 @@ def artifact_paths(name: str) -> ArtifactPaths:
         "path_json": path_json_for(name),
         "path_png": path_png_for(name),
         "generated_wbt": generated_wbt_for(name),
+        "trajectory_csv": trajectory_csv_for(name),
     }
 
 

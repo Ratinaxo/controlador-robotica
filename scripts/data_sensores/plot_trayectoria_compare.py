@@ -24,13 +24,13 @@ sys.path.insert(0, str(SCRIPTS_DIR))
 
 from occupancy_grid import DEFAULT_SPEC, grid_spec_from_dict
 from paths import (
-    CONTROLLER_TRAJECTORY_CSV,
     TRAJECTORY_COMPARE_PNG,
     artifact_paths,
+    trajectory_csv_for,
 )
+from navigation_metrics import path_length
 from plot_style import add_legend_side_arg, legend_loc
 
-DEFAULT_CSV = CONTROLLER_TRAJECTORY_CSV
 DEFAULT_OUTPUT = TRAJECTORY_COMPARE_PNG
 
 ANIMATION_INTERVAL_MS = 500
@@ -53,7 +53,12 @@ def parse_args() -> argparse.Namespace:
         required=True,
         help="World identifier used to locate grid and path JSON artifacts",
     )
-    parser.add_argument("--csv", type=Path, default=DEFAULT_CSV, help="Executed trajectory CSV")
+    parser.add_argument(
+        "--csv",
+        type=Path,
+        default=None,
+        help="Executed trajectory CSV (default: data_sensores/{name}_trayectoria.csv)",
+    )
     parser.add_argument(
         "--path",
         type=Path,
@@ -129,15 +134,6 @@ def read_trajectory_csv(csv_file: Path):
             )
             _csv_read_error_logged = True
         return None
-
-
-def path_length(points: list[tuple[float, float]]) -> float:
-    total = 0.0
-    for i in range(1, len(points)):
-        x0, y0 = points[i - 1]
-        x1, y1 = points[i]
-        total += ((x1 - x0) ** 2 + (y1 - y0) ** 2) ** 0.5
-    return total
 
 
 class TrajectoryComparePlot:
@@ -239,7 +235,7 @@ class TrajectoryComparePlot:
             if self.realtime and not self._csv_missing_warned:
                 print(
                     f"Advertencia: CSV no encontrado o vacio: {self.csv_file.resolve()}\n"
-                    "  Verifica controllerArgs en Webots (--csv data_sensores/trayectoria_ejecutada.csv)",
+                    "  Verifica controllerArgs en Webots (--csv data_sensores/{name}_trayectoria.csv)",
                     file=sys.stderr,
                 )
                 self._csv_missing_warned = True
@@ -293,6 +289,8 @@ def main() -> int:
     args = parse_args()
     artifacts = artifact_paths(args.name)
 
+    if args.csv is None:
+        args.csv = artifacts["trajectory_csv"]
     if args.path is None:
         args.path = artifacts["path_json"]
     if args.grid is None:

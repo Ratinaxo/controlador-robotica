@@ -151,7 +151,7 @@ RectangleArena {{
   controller "controlador_Proyectofinal"
   controllerArgs [
     "--path" "scripts/output/{world_name}_path.json"
-    "--csv" "data_sensores/trayectoria_ejecutada.csv"
+    "--csv" "data_sensores/{world_name}_trayectoria.csv"
   ]
 }}
 """

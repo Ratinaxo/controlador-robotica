@@ -1,0 +1,16 @@
+{
+  "world": "Dificil",
+  "csv": "/home/ratin/Escritorio/controlador-robotica-Proyectofinal/data_sensores/Dificil_trayectoria.csv",
+  "path_json": "/home/ratin/Escritorio/controlador-robotica-Proyectofinal/scripts/output/Dificil_path.json",
+  "computed_at": "2026-06-17T06:53:33.370962+00:00",
+  "success": true,
+  "time_to_goal_s": 62.88,
+  "planned_length_m": 2.56,
+  "executed_length_m": 2.5646,
+  "length_delta_m": 0.0046,
+  "final_position_error_m": 0.00047,
+  "goal_x_m": 0.68,
+  "goal_y_m": 0.6,
+  "final_x_m": 0.68,
+  "final_y_m": 0.60047
+}
