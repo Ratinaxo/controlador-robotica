@@ -1,0 +1,602 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/apartment_structure/protos/Wall.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.11000835818142425 0.9722126184264838 -0.20664168432953547 1.4348233594531277
+  position -0.3623608000878591 0.9324751020350198 1.713356738088449
+}
+TexturedBackground {
+  luminosity 10
+}
+RectangleArena {
+  floorSize 1.6 1.6
+  floorTileSize 0.08 0.08
+}
+Wall {
+  translation -0.76 -0.76 0.0
+  name "wall_cell(0,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.68 -0.76 0.0
+  name "wall_cell(1,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.6 -0.76 0.0
+  name "wall_cell(2,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.52 -0.76 0.0
+  name "wall_cell(3,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.44 -0.76 0.0
+  name "wall_cell(4,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.36 -0.76 0.0
+  name "wall_cell(5,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.28 -0.76 0.0
+  name "wall_cell(6,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.2 -0.76 0.0
+  name "wall_cell(7,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.12 -0.76 0.0
+  name "wall_cell(8,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.04 -0.76 0.0
+  name "wall_cell(9,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.04 -0.76 0.0
+  name "wall_cell(10,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.12 -0.76 0.0
+  name "wall_cell(11,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.2 -0.76 0.0
+  name "wall_cell(12,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.28 -0.76 0.0
+  name "wall_cell(13,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.36 -0.76 0.0
+  name "wall_cell(14,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.44 -0.76 0.0
+  name "wall_cell(15,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.52 -0.76 0.0
+  name "wall_cell(16,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.6 -0.76 0.0
+  name "wall_cell(17,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.68 -0.76 0.0
+  name "wall_cell(18,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 -0.76 0.0
+  name "wall_cell(19,0)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 -0.68 0.0
+  name "wall_cell(0,1)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 -0.68 0.0
+  name "wall_cell(19,1)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 -0.6 0.0
+  name "wall_cell(0,2)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.12 -0.6 0.0
+  name "wall_cell(11,2)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 -0.6 0.0
+  name "wall_cell(19,2)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 -0.52 0.0
+  name "wall_cell(0,3)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.6 -0.52 0.0
+  name "wall_cell(2,3)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.44 -0.52 0.0
+  name "wall_cell(4,3)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.36 -0.52 0.0
+  name "wall_cell(14,3)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 -0.52 0.0
+  name "wall_cell(19,3)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 -0.44 0.0
+  name "wall_cell(0,4)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.12 -0.44 0.0
+  name "wall_cell(11,4)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 -0.44 0.0
+  name "wall_cell(19,4)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 -0.36 0.0
+  name "wall_cell(0,5)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.68 -0.36 0.0
+  name "wall_cell(18,5)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 -0.36 0.0
+  name "wall_cell(19,5)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 -0.28 0.0
+  name "wall_cell(0,6)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.2 -0.28 0.0
+  name "wall_cell(7,6)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.04 -0.28 0.0
+  name "wall_cell(9,6)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 -0.28 0.0
+  name "wall_cell(19,6)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 -0.2 0.0
+  name "wall_cell(0,7)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.44 -0.2 0.0
+  name "wall_cell(4,7)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.04 -0.2 0.0
+  name "wall_cell(10,7)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.2 -0.2 0.0
+  name "wall_cell(12,7)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.36 -0.2 0.0
+  name "wall_cell(14,7)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.52 -0.2 0.0
+  name "wall_cell(16,7)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 -0.2 0.0
+  name "wall_cell(19,7)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 -0.12 0.0
+  name "wall_cell(0,8)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.2 -0.12 0.0
+  name "wall_cell(7,8)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 -0.12 0.0
+  name "wall_cell(19,8)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 -0.04 0.0
+  name "wall_cell(0,9)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 -0.04 0.0
+  name "wall_cell(19,9)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 0.04 0.0
+  name "wall_cell(0,10)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.52 0.04 0.0
+  name "wall_cell(3,10)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.12 0.04 0.0
+  name "wall_cell(11,10)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 0.04 0.0
+  name "wall_cell(19,10)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 0.12 0.0
+  name "wall_cell(0,11)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.28 0.12 0.0
+  name "wall_cell(6,11)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.52 0.12 0.0
+  name "wall_cell(16,11)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 0.12 0.0
+  name "wall_cell(19,11)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 0.2 0.0
+  name "wall_cell(0,12)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.36 0.2 0.0
+  name "wall_cell(5,12)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.28 0.2 0.0
+  name "wall_cell(13,12)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 0.2 0.0
+  name "wall_cell(19,12)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 0.28 0.0
+  name "wall_cell(0,13)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.12 0.28 0.0
+  name "wall_cell(8,13)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.04 0.28 0.0
+  name "wall_cell(10,13)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 0.28 0.0
+  name "wall_cell(19,13)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 0.36 0.0
+  name "wall_cell(0,14)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.52 0.36 0.0
+  name "wall_cell(3,14)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 0.36 0.0
+  name "wall_cell(19,14)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 0.44 0.0
+  name "wall_cell(0,15)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.28 0.44 0.0
+  name "wall_cell(6,15)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.04 0.44 0.0
+  name "wall_cell(10,15)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 0.44 0.0
+  name "wall_cell(19,15)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 0.52 0.0
+  name "wall_cell(0,16)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.52 0.52 0.0
+  name "wall_cell(3,16)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.36 0.52 0.0
+  name "wall_cell(5,16)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.04 0.52 0.0
+  name "wall_cell(9,16)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.44 0.52 0.0
+  name "wall_cell(15,16)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.6 0.52 0.0
+  name "wall_cell(17,16)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 0.52 0.0
+  name "wall_cell(19,16)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 0.6 0.0
+  name "wall_cell(0,17)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.28 0.6 0.0
+  name "wall_cell(6,17)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 0.6 0.0
+  name "wall_cell(19,17)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 0.68 0.0
+  name "wall_cell(0,18)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 0.68 0.0
+  name "wall_cell(19,18)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.76 0.76 0.0
+  name "wall_cell(0,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.68 0.76 0.0
+  name "wall_cell(1,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.6 0.76 0.0
+  name "wall_cell(2,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.52 0.76 0.0
+  name "wall_cell(3,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.44 0.76 0.0
+  name "wall_cell(4,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.36 0.76 0.0
+  name "wall_cell(5,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.28 0.76 0.0
+  name "wall_cell(6,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.2 0.76 0.0
+  name "wall_cell(7,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.12 0.76 0.0
+  name "wall_cell(8,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation -0.04 0.76 0.0
+  name "wall_cell(9,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.04 0.76 0.0
+  name "wall_cell(10,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.12 0.76 0.0
+  name "wall_cell(11,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.2 0.76 0.0
+  name "wall_cell(12,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.28 0.76 0.0
+  name "wall_cell(13,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.36 0.76 0.0
+  name "wall_cell(14,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.44 0.76 0.0
+  name "wall_cell(15,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.52 0.76 0.0
+  name "wall_cell(16,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.6 0.76 0.0
+  name "wall_cell(17,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.68 0.76 0.0
+  name "wall_cell(18,19)"
+  size 0.08 0.08 0.05
+}
+Wall {
+  translation 0.76 0.76 0.0
+  name "wall_cell(19,19)"
+  size 0.08 0.08 0.05
+}
+DEF START_MARKER Solid {
+  translation -0.68 -0.6 0.005
+  rotation 1 0 0 1.5708
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1 0.85 0.2
+        roughness 0.6
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.01
+        radius 0.08
+        subdivision 24
+      }
+    }
+  ]
+  name "start"
+}
+DEF GOAL_MARKER Solid {
+  translation 0.68 0.6 0.005
+  rotation 1 0 0 1.5708
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.9 0.15 0.1
+        roughness 0.6
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.01
+        radius 0.08
+        subdivision 24
+      }
+    }
+  ]
+  name "goal"
+}
+E-puck {
+  translation -0.68 -0.6 0
+  rotation 0 0 1 -1.5707953071795862
+  controller "controlador_Proyectofinal"
+  controllerArgs [
+    "--path" "scripts/output/Dificil_path.json"
+    "--csv" "data_sensores/trayectoria_ejecutada.csv"
+  ]
+}
